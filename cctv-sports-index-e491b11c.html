@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>赛事资料室 · NBA直播信息索引</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #f7f9fc;
+      color: #1e2a3a;
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+
+    /* 深色头图 */
+    .page-header {
+      background: #0f1a2b;
+      background-image: radial-gradient(circle at 25% 30%, #1f334c 0%, #0b121e 90%);
+      padding: 2.8rem 1.5rem 2.2rem;
+      color: #e7edf5;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, #3a7bd5, #6fc3df, #3a7bd5);
+      opacity: 0.5;
+    }
+
+    .site-nav {
+      max-width: 960px;
+      margin: 0 auto 1.8rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.2rem 2.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .site-nav a {
+      color: #b7cfe8;
+      text-decoration: none;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .site-nav a:hover {
+      border-bottom-color: #6fc3df;
+      color: #ffffff;
+    }
+
+    .site-title {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .site-sub {
+      font-size: 1.05rem;
+      color: #b7cfe8;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 350;
+    }
+
+    .hero-tagline {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      display: inline-block;
+      padding: 0.4rem 1.6rem;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+    }
+
+    /* 浅色正文区 */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2.6rem 1.5rem 3.5rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #0f1a2b;
+      border-left: 5px solid #3a7bd5;
+      padding-left: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-desc {
+      color: #2d3f57;
+      margin-bottom: 2.2rem;
+    }
+
+    .highlight-link {
+      color: #1a6bb0;
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px dashed #9bb9dd;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .highlight-link:hover {
+      color: #0f4a7a;
+      border-bottom-style: solid;
+      border-color: #1a6bb0;
+    }
+
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    .scene-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.8rem 1.4rem;
+      box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #e9eef3;
+    }
+
+    .scene-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(15, 26, 43, 0.08);
+      border-color: #cbdae8;
+    }
+
+    .scene-card h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: #0f1a2b;
+    }
+
+    .scene-card .emoji-badge {
+      font-size: 1.8rem;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+
+    .scene-card p {
+      color: #364c64;
+      font-size: 0.95rem;
+    }
+
+    .info-block {
+      background: #f1f5fa;
+      border-radius: 18px;
+      padding: 2rem 2rem 1.8rem;
+      margin: 2.5rem 0;
+    }
+
+    .info-block h3 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #0f1a2b;
+    }
+
+    .faq-item {
+      margin-bottom: 1.4rem;
+    }
+
+    .faq-item strong {
+      display: block;
+      font-weight: 600;
+      color: #1a3a5a;
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-item p {
+      color: #2f435b;
+      margin-left: 0.8rem;
+    }
+
+    .footnote {
+      border-top: 1px solid #d9e2ec;
+      padding-top: 1.8rem;
+      margin-top: 2.8rem;
+      color: #4c607a;
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .footnote a {
+      color: #1a6bb0;
+      text-decoration: none;
+      border-bottom: 1px dotted #b0c8e0;
+    }
+
+    .footnote a:hover {
+      border-bottom: 1px solid #1a6bb0;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 600px) {
+      .site-title {
+        font-size: 1.9rem;
+      }
+      .site-nav {
+        gap: 0.8rem 1.4rem;
+        font-size: 0.9rem;
+      }
+      .container {
+        padding: 1.8rem 1rem;
+      }
+      .section-title {
+        font-size: 1.3rem;
+      }
+      .scene-card {
+        padding: 1.4rem 1rem;
+      }
+      .info-block {
+        padding: 1.4rem 1rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .site-title {
+        font-size: 1.6rem;
+      }
+      .site-sub {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* 强调色用于链接（已嵌入 highlight-link & 其他a） */
+  </style>
+</head>
+<body>
+
+<header class="page-header">
+  <nav class="site-nav">
+    <a href="#">资料首页</a>
+    <a href="#">赛程整理</a>
+    <a href="#">球队笔记</a>
+    <a href="#">常见问题</a>
+  </nav>
+  <div class="site-title">🏀 赛事资料整理</div>
+  <div class="site-sub">从信息索引的角度梳理 <strong>NBA直播</strong> 相关资源 · 轻量导航</div>
+  <div class="hero-tagline">📋 基于公开信息 · 日常维护</div>
+</header>
+
+<main class="container">
+  
+  <section>
+    <h2 class="section-title">资料说明</h2>
+    <p class="section-desc">
+      这里是一份围绕 <a href="https://cctv-sports-nba.com" class="highlight-link">NBA直播</a> 整理的信息页，重点提供赛事转播渠道、常见平台和观赛场景的索引。
+      内容主要来自公开的资料汇总，不包含独家或非授权信息，仅作为观赛前的参考清单。你可以把它当作一张“观赛前的小地图”，快速了解不同环境下的选择。
+    </p>
+  </section>
+
+  <!-- 三个场景模块 -->
+  <section>
+    <h2 class="section-title">常见观赛场景</h2>
+    <div class="scene-grid">
+      <div class="scene-card">
+        <span class="emoji-badge">📱</span>
+        <h3>移动端快速浏览</h3>
+        <p>通勤或短暂休息时，通过手机浏览器或轻应用查看实时比分、赛程预告。很多平台会提供精简的文字直播或数据面板，适合碎片时间。</p>
+      </div>
+      <div class="scene-card">
+        <span class="emoji-badge">💻</span>
+        <h3>桌面端深度跟进</h3>
+        <p>使用电脑多窗口操作，同时打开数据统计、球员信息和直播画面。适合需要做比赛笔记或关注战术细节的球迷。</p>
+      </div>
+      <div class="scene-card">
+        <span class="emoji-badge">📺</span>
+        <h3>客厅大屏体验</h3>
+        <p>通过投屏或智能电视客户端观看，画面更稳定。适合家庭聚会或朋友一起看球，氛围感更强。</p>
+      </div>
+    </div>
+    <p style="color: #3f5773; margin-top: 0.4rem;">以上场景均可以在 <a href="https://cctv-sports-nba.com" class="highlight-link">NBA直播</a> 相关页面中找到对应的入口或介绍。</p>
+  </section>
+
+  <!-- 常见说明 (FAQ摘要+提示) -->
+  <section class="info-block">
+    <h3>📌 常见说明</h3>
+    <div class="faq-item">
+      <strong>观赛前需要准备什么？</strong>
+      <p>稳定的网络环境，以及支持主流播放器的设备。部分平台可能需要注册或登录，建议提前确认账号状态。</p>
+    </div>
+    <div class="faq-item">
+      <strong>赛程时间如何查询？</strong>
+      <p>常规赛、季后赛的日期和时间会随赛季更新，可以利用 <a href="https://cctv-sports-nba.com" class="highlight-link">NBA直播</a> 页面上的赛程板块快速筛选日期和球队。</p>
+    </div>
+    <div class="faq-item">
+      <strong>回放或集锦在哪里找？</strong>
+      <p>大多数转播平台会在比赛结束后提供回放片段，或者通过官方合作的视频页面查看。记得留意页面上的“回放”标签。</p>
+    </div>
+    <div class="faq-item">
+      <strong>关于版权与可用性</strong>
+      <p>不同地区的转播授权存在差异，部分链接可能因区域限制无法访问。建议根据自己所在区域选择合规渠道。</p>
+    </div>
+    <p style="margin-top: 1.2rem; font-size: 0.95rem; color: #2b4260;">
+      ⚡ 如果你在寻找集中的信息入口，<a href="https://cctv-sports-nba.com" class="highlight-link">NBA直播</a> 页面整理了一些常用的导航和资源链接，可以作为出发参考。
+    </p>
+  </section>
+
+  <!-- 一段额外的索引提示 -->
+  <section style="margin-bottom: 1.2rem;">
+    <h2 class="section-title" style="font-size: 1.3rem;">索引与更新</h2>
+    <p style="color: #2d4059;">
+      页面内容会随赛季进程做常规刷新。如果发现某个链接或说明已经过时，欢迎通过页面上的反馈渠道提醒更新。
+      目前主要关注常规赛与季后赛的直播信息，休赛期会适当调整为重点赛事回顾和选秀、夏季联赛等内容的索引。
+    </p>
+  </section>
+
+  <div class="footnote">
+    <span>📂 基于公开资料整理 · 非官方页面</span>
+    <span><a href="https://cctv-sports-nba.com" style="border-bottom: 1px dotted #7199c0;">NBA直播</a> · 信息索引 v1.2</span>
+  </div>
+
+</main>
+
+</body>
+</html>
